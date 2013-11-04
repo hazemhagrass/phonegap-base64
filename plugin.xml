@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.badrit.EmailComposer"
+    id="com.badrit.Base64"
     version="0.1.0">
     <name>Base64</name>
     <description>Cordova Base64 Plugin</description>
