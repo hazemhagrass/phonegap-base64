@@ -1,15 +1,16 @@
 /**
  * 
- * Phonegap Email composer plugin for Android with multiple attachments handling
+ * Phonegap Base64 plugin
  * 
  * Version 1.0
  * 
- * Guido Sabatini 2012
+ * Hazem Hagrass 2013
  *
  */
 
 package com.badrit.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,8 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.Html;
+import android.util.Base64;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -34,19 +38,31 @@ public class Base64Plugin extends CordovaPlugin {
 			try {
 				JSONObject parameters = args.getJSONObject(0);
 				if (parameters != null) {
-					encodeFile(parameters);
+					String base64String = encodeFile(parameters.getString("filePath"));
+					callbackContext.success(base64String);
 				}
 			} catch (Exception e) {
 
 			}
-			callbackContext.success();
+			
 			return true;
 		}
-		return false;  // Returning false results in a "MethodNotFound" error.
+		return false; 
 	}
 
-	private void encodeFile(JSONObject parameters) {
+	private String encodeFile(String filePath) {
+		String imgStr = "";
+		filePath = filePath.replaceAll("file://", "");
+		File imageFile = new File(filePath);
+		if(!imageFile.exists())
+			return imgStr;
+		Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+		byte[] image = stream.toByteArray();
+		imgStr = Base64.encodeToString(image, 0);
 		
+		return imgStr;
 	}
 	
 
