@@ -1,0 +1,1 @@
+# Base64 is an android plugin to get base64 encoding of any file
