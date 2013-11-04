@@ -23,7 +23,7 @@ Base64.prototype.encodeFile = function(filePath, sucess, failure) {
 
 			var dataUri = c.toDataURL("image/png");
 			
-			callback(dataUri);
+			sucess(dataUri);
 		};
 		img.src = filePath;
 	}
