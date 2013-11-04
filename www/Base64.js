@@ -1,15 +1,14 @@
 // window.plugins.Base64
 
 function Base64() {
-	this.resultCallback = null; // Function
 }
 
 
-EmailComposer.prototype.encodeFile = function(filePath) {
+Base64.prototype.encodeFile = function(filePath, sucess, failure) {
 	var args = {};
 	ags.filePath = filePath;
-	
-	cordova.exec(null, null, "Base64", "encodeFile", [args]);
+	this.resultCallback = callback;
+	cordova.exec(sucess, failure, "Base64", "encodeFile", [args]);
 }
 
 cordova.addConstructor(function()  {
