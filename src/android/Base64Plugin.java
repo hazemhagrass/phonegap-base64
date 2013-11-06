@@ -61,7 +61,7 @@ public class Base64Plugin extends CordovaPlugin {
 		bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
 		byte[] image = stream.toByteArray();
 		imgStr = Base64.encodeToString(image, 0);
-		
+		imgStr = "data:image/png;charset=utf-8;base64," + imgStr;
 		return imgStr;
 	}
 	
