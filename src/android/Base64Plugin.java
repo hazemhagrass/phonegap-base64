@@ -10,8 +10,10 @@
 
 package com.badrit.Base64;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -52,17 +54,24 @@ public class Base64Plugin extends CordovaPlugin {
 
 	private String encodeFile(String filePath) {
 		String imgStr = "";
-		filePath = filePath.replaceAll("file://", "");
-		File imageFile = new File(filePath);
-		if(!imageFile.exists())
+		try {
+			filePath = filePath.replaceAll("file://", "");
+			File imageFile = new File(filePath);
+			if(!imageFile.exists())
+				return imgStr;
+			
+			byte[] bytes = new byte[(int) imageFile.length()];
+			
+			FileInputStream fileInputStream = new FileInputStream(imageFile);
+			fileInputStream.read(bytes);
+			
+			imgStr = Base64.encodeToString(bytes, Base64.DEFAULT);
+			imgStr = "data:image/*;charset=utf-8;base64," + imgStr;
+		} catch (Exception e) {
 			return imgStr;
-		Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-		byte[] image = stream.toByteArray();
-		imgStr = Base64.encodeToString(image, 0);
-		imgStr = "data:image/png;charset=utf-8;base64," + imgStr;
+		}
 		return imgStr;
+		
 	}
 	
 
