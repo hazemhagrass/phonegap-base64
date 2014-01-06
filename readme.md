@@ -13,6 +13,7 @@ phonegap local plugin add org.apache.cordova.device
 Example Usage: 
 
 ```js
+//filePath is the absolute path to the file(/mnt/sdcard/...)
 window.plugins.Base64.encodeFile(filePath, function(base64){
  			console.log('file base64 encoding: ' + base64);
  		});
