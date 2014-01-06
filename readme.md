@@ -1,7 +1,12 @@
 Base64 plugin for Cordova / PhoneGap
 ======================================================
 
-This Plugin is used to encode base64 of any file, it uses js code for iOS, but incase of android it uses native code to handle android version < 3
+This Plugin is used to encode base64 of any file, it uses js code for iOS, but incase of android it uses native code to handle android versions lower then v.3
+
+## Prerequisites
+```js
+phonegap local plugin add org.apache.cordova.device
+```
 
 ## Usage
 
