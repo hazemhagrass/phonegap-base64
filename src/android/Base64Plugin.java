@@ -55,23 +55,35 @@ public class Base64Plugin extends CordovaPlugin {
 	private String encodeFile(String filePath) {
 		String imgStr = "";
 		try {
-			filePath = filePath.replaceAll("file://", "");
+			Uri _uri = Uri.parse(filePath);
+			if (_uri != null && "content".equals(_uri.getScheme())) {
+				Cursor cursor = cordova
+						.getActivity()
+						.getContentResolver()
+						.query(_uri,
+								new String[] { android.provider.MediaStore.Images.ImageColumns.DATA },
+								null, null, null);
+				cursor.moveToFirst();
+				filePath = cursor.getString(0);
+				cursor.close();
+			} else {
+				filePath = _uri.getPath();
+			}
 			File imageFile = new File(filePath);
-			if(!imageFile.exists())
+			if (!imageFile.exists())
 				return imgStr;
-			
+
 			byte[] bytes = new byte[(int) imageFile.length()];
-			
+
 			FileInputStream fileInputStream = new FileInputStream(imageFile);
 			fileInputStream.read(bytes);
-			
+
 			imgStr = Base64.encodeToString(bytes, Base64.DEFAULT);
 			imgStr = "data:image/*;charset=utf-8;base64," + imgStr;
 		} catch (Exception e) {
 			return imgStr;
 		}
-		return imgStr;
-		
+		return imgStr;		
 	}
 	
 
