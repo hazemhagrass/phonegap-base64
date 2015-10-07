@@ -19,6 +19,18 @@ window.plugins.Base64.encodeFile(filePath, function(base64){
  		});
 ```
 
+## Installation 
+
+for Cordova >= 3.0.0
+
+phonegap local plugin add https://github.com/hazemhagrass/phonegap-base64.git
+
+cordova plugin add https://github.com/hazemhagrass/phonegap-base64.git
+
+for Cordova >= 5.0.0
+
+cordova plugin add com-badrit-base64
+
 This has been successfully tested on Cordova 3.0 to 3.1.
 
 ## MIT Licence

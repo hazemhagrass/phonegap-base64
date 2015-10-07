@@ -1,0 +1,22 @@
+{
+  "name": "com-badrit-base64",
+  "version": "0.2.0",
+  "description": "Cordova Base64 Plugin",
+  "cordova": {
+    "id": "com-badrit-base64",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hazemhagrass/phonegap-base64"
+  },
+  "keywords": [
+    "cordova",
+    "base64",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT"
+}
