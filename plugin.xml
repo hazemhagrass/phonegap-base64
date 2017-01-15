@@ -8,6 +8,7 @@
     <description>Cordova Base64 Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,Base64</keywords>
+    <dependency id="cordova-plugin-device" version="^1.1.4" />
 
 
     <js-module src="www/Base64.js" name="Base64">
