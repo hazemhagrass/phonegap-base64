@@ -1,3 +1,4 @@
+cordova.define("com-badrit-base64.Base64", function(require, exports, module) {
 // window.plugins.Base64
 
 function Base64() {
@@ -11,21 +12,17 @@ Base64.prototype.encodeFile = function(filePath, sucess, failure) {
 	if (device.platform == "Android")
 		cordova.exec(sucess, failure, "Base64", "encodeFile", [args]);
 	else{
-		var c = document.createElement('canvas');
-		var ctx = c.getContext("2d");
-		var img = new Image();
-		
-		img.onload = function() {
-			c.width = this.width;
-			c.height = this.height;
-
-			ctx.drawImage(img, 0, 0);
-
-			var dataUri = c.toDataURL("image/png");
-			
-			sucess(dataUri);
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", filePath, true);
+		xhr.responseType = "blob";
+		xhr.onload = function (e) {
+			var reader = new FileReader();
+			reader.onload = () => sucess(reader.result);
+			reader.onerror = error => failure(error);
+			var file = this.response;
+			reader.readAsDataURL(file);
 		};
-		img.src = filePath;
+		xhr.send();
 	}
 }
 
@@ -41,4 +38,5 @@ cordova.addConstructor(function()  {
    };
    
    window.plugins.Base64 = new Base64();
+});
 });
